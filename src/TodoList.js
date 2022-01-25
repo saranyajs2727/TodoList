@@ -1,5 +1,5 @@
 
-import React ,{useState,useEffect} from 'react';
+import React ,{useState} from 'react';
 import {
   StyleSheet,
   SafeAreaView,
@@ -11,16 +11,11 @@ import {
   Alert,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
 const COLORS = {primary: '#1f145c', white: '#fff',blue:"#0000ff"};
 
 const TodoList = () => {
   const [todos, setTodos] = useState([]);
   const [textInput, setTextInput] = useState('');
-
-
-
   const addTodo = () => {
     if (textInput == '') {
       Alert.alert('Error', 'Please input todo');
@@ -28,7 +23,6 @@ const TodoList = () => {
       const newTodo = {
         id: Math.random(),
         task: textInput,
-        completed: false,
       };
       setTodos([...todos, newTodo]);
       setTextInput('');
@@ -63,7 +57,7 @@ const TodoList = () => {
               color: COLORS.primary,
               textDecorationLine: todo?.completed ? 'line-through' : 'none',
             }}>
-            {todo?.task}
+            {todo.task}
           </Text>
         </View>
        
@@ -160,7 +154,7 @@ const styles = StyleSheet.create({
   actionIcon: {
     height: 25,
     width: 25,
-    backgroundColor: 'black',
+    backgroundColor: 'green',
     justifyContent: 'center',
     alignItems: 'center',
     
