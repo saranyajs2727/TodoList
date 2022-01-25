@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
   actionIcon: {
     height: 25,
     width: 25,
-    backgroundColor: 'green',
+    backgroundColor: 'black',
     justifyContent: 'center',
     alignItems: 'center',
     
