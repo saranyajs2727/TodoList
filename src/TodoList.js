@@ -11,7 +11,7 @@ import {
   Alert,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-const COLORS = {primary: '#1f145c', white: '#fff',blue:"#0000ff"};
+const COLORS = {primary: '#1f145c', white: '#fff',blue:"#55BCF6"};
 
 const TodoList = () => {
   const [todos, setTodos] = useState([]);
@@ -49,7 +49,10 @@ const TodoList = () => {
   const ListItem = ({todo}) => {
     return (
       <View style={styles.listItem}>
-        <View style={{flex: 1}}>
+        <View style={styles.itemleft}>
+        <View style={styles.square}>
+        </View>
+     
           <Text
             style={{
               fontWeight: 'bold',
@@ -59,6 +62,7 @@ const TodoList = () => {
             }}>
             {todo.task}
           </Text>
+
         </View>
        
 
@@ -133,6 +137,20 @@ const styles = StyleSheet.create({
     marginRight: 20,
     borderRadius: 30,
   },
+  itemleft:{
+    flexDirection: "row",
+    alignItems:'center',
+    flexWrap:'wrap',
+    flex:1,
+  },
+  square:{
+    width:24,
+    height:24,
+    backgroundColor:'#55BCF6',
+    opacity:0.4,
+    borderRadius:5,
+    marginRight:15,
+  },
   iconContainer: {
     height: 50,
     width: 50,
@@ -154,7 +172,7 @@ const styles = StyleSheet.create({
   actionIcon: {
     height: 25,
     width: 25,
-    backgroundColor: 'red',
+    backgroundColor: '#55BCF6',
     justifyContent: 'center',
     alignItems: 'center',
     
@@ -166,7 +184,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor:"blue",
+    backgroundColor:COLORS.blue
   },
 });
 
