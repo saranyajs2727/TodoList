@@ -19,13 +19,7 @@ const TodoList = () => {
   const [todos, setTodos] = useState([]);
   const [textInput, setTextInput] = useState('');
 
-  useEffect(() => {
-    getTodosFromUserDevice();
-  }, []);
 
-  useEffect(() => {
-    saveTodoToUserDevice(todos);
-  }, [todos]);
 
   const addTodo = () => {
     if (textInput == '') {
@@ -39,37 +33,6 @@ const TodoList = () => {
       setTodos([...todos, newTodo]);
       setTextInput('');
     }
-  };
-
-  const saveTodoToUserDevice = async todos => {
-    try {
-      const stringifyTodos = JSON.stringify(todos);
-      await AsyncStorage.setItem('todos', stringifyTodos);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getTodosFromUserDevice = async () => {
-    try {
-      const todos = await AsyncStorage.getItem('todos');
-      if (todos != null) {
-        setTodos(JSON.parse(todos));
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const markTodoComplete = todoId => {
-    const newTodosItem = todos.map(item => {
-      if (item.id == todoId) {
-        return {...item, completed: true};
-      }
-      return item;
-    });
-
-    setTodos(newTodosItem);
   };
 
   const deleteTodo = todoId => {
@@ -103,13 +66,9 @@ const TodoList = () => {
             {todo?.task}
           </Text>
         </View>
-        {!todo?.completed && (
-          <TouchableOpacity onPress={() => markTodoComplete(todo.id)}>
-            <View style={[styles.actionIcon, {backgroundColor: 'green'}]}>
-              <Icon name="done" size={20} color="white" />
-            </View>
-          </TouchableOpacity>
-        )}
+       
+
+        
         <TouchableOpacity onPress={() => deleteTodo(todo.id)}>
           <View style={styles.actionIcon}>
             <Icon name="delete" size={20} color="white" />
