@@ -225,6 +225,7 @@ import {
   Alert,
   Button,
 } from 'react-native';
+import { useForm, Controller } from "react-hook-form";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import * as yup from 'yup'
 import { Formik } from 'formik'
@@ -293,12 +294,20 @@ const TodoList = () => {
       </View>
     );
   };
-  const loginValidationSchema = yup.object().shape({
-    email: yup
-      .string()
-      .email("Please enter valid email")
-      .required('Email Address is Required'),
-  })
+  // const loginValidationSchema = yup.object().shape({
+  //   email: yup
+  //     .string()
+  //     .email("Please enter valid email")
+  //     .required('Email Address is Required'),
+  // })
+  const { control, handleSubmit, formState: { errors } } = useForm({
+    defaultValues: {
+        lastName: '',
+      firstName: '',
+     
+    }
+  });
+  const onSubmit = data => console.log(data);
   return (
     <SafeAreaView
       style={{
@@ -316,6 +325,22 @@ const TodoList = () => {
         </Text>
         <Icon name="delete" size={25} color="black" onPress={clearAllTodos} />
       </View>
+      <Controller
+        control={control}
+        rules={{
+         required: true,
+        }}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <TextInput
+            style={styles.input}
+            onBlur={onBlur}
+            onChangeText={onChange}
+            value={value}
+          />
+        )}
+        name="lastName"
+      />
+      {errors.lastName && <Text>This is required.</Text>}
       <FlatList
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{padding: 20, paddingBottom: 100}}
@@ -325,41 +350,7 @@ const TodoList = () => {
 
       <View style={styles.footer}>
         <View style={styles.inputContainer}>
-        {/* <Formik
-          validationSchema={loginValidationSchema}
-   initialValues={{ email: '' }}
-   onSubmit={values => console.log(values)}>
-   {({
-     handleChange,
-     handleBlur,
-     handleSubmit,
-     values,
-     errors,
-     isValid,
-   }) => (
-     <>
-     <TextInput
-       placeholder="Add Todo"
-         name="email"
-         placeholder="Email Address"
-         style={styles.textInput}
-         onChangeText={handleChange('email')}
-         onBlur={handleBlur('email')}
-         value={values.email}
-          />
-       {errors.email &&
-         <Text style={{ fontSize: 10, color: 'red' }}>{errors.email}</Text>
-       }
-       <Button
-         onPress={handleSubmit}
-         title="LOGIN"
-         disabled={!isValid}
-       />
-     </>
-   )}
-
-        </Formik> */}
-       
+    
         <TextInput
             value={textInput}
             placeholder="Add Todo"
@@ -446,6 +437,15 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     backgroundColor:COLORS.blue
   },
+      input: {
+      height: 40,
+      width: '100%',
+      margin: 10,
+      backgroundColor: 'white',
+      borderColor: 'gray',
+      borderWidth: StyleSheet.hairlineWidth,
+      borderRadius: 10,
+    },
 });
 
 export default TodoList
