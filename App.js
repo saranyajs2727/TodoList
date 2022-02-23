@@ -1,5 +1,6 @@
 import React from 'react';
 import TodoList from './src/TodoList';
+import Signup from './src/Signup'
 import { View ,Text,StyleSheet} from 'react-native';
 
 export default function App() {
@@ -8,6 +9,7 @@ export default function App() {
     <View style={styles.container}>
  
     <TodoList />
+    {/* <Signup /> */}
     </View>
  
   )
