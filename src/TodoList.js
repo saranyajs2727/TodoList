@@ -228,6 +228,7 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import * as yup from 'yup'
+
 import { Formik } from 'formik'
 const COLORS = {primary: '#1f145c', white: '#fff',blue:"#55BCF6"};
 
@@ -302,7 +303,7 @@ const TodoList = () => {
   // })
   const { control, handleSubmit, formState: { errors } } = useForm({
     defaultValues: {
-        lastName: '',
+      lastName: '',
       firstName: '',
      
     }
@@ -325,10 +326,11 @@ const TodoList = () => {
         </Text>
         <Icon name="delete" size={25} color="black" onPress={clearAllTodos} />
       </View>
+      <View>
       <Controller
         control={control}
         rules={{
-         required: true,
+         maxLength: 100,
         }}
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
@@ -338,9 +340,11 @@ const TodoList = () => {
             value={value}
           />
         )}
-        name="lastName"
+        name="firstName"
       />
-      {errors.lastName && <Text>This is required.</Text>}
+    {errors.firstName && <Text>This is required.</Text>}
+      <Button title="Submit" onPress={handleSubmit(onSubmit)} />
+      </View>
       <FlatList
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{padding: 20, paddingBottom: 100}}
@@ -350,7 +354,7 @@ const TodoList = () => {
 
       <View style={styles.footer}>
         <View style={styles.inputContainer}>
-    
+ 
         <TextInput
             value={textInput}
             placeholder="Add Todo"
